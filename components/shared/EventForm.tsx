@@ -52,9 +52,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+              <FormDescription>Your name</FormDescription>
               <FormMessage />
             </FormItem>
           )}
