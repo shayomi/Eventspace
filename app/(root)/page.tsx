@@ -45,7 +45,7 @@ export default async function Home() {
       >
         <h2 className="h2-bold">
           {" "}
-          Trusted by <br /> Thousands of Events and
+          Trusted by <br /> Thousands of Events
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           search category
