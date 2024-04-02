@@ -4,11 +4,14 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs";
 import Collection from "@/components/shared/Collection";
 import { getEventsByUser } from "@/lib/action/event.actions";
+import { getOrdersByUser } from "@/lib/action/order.action";
+import { IOrder } from "@/lib/database/models/order.model";
 
 const ProfilePage = async () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
-
+  const orders = await getOrdersByUser({ userId, page: 1 });
+  const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
   const organizedEvents = await getEventsByUser({ userId, page: 1 });
   return (
     <>
@@ -23,16 +26,16 @@ const ProfilePage = async () => {
       </section>
 
       <section className="wrapper my-8">
-        {/* <Collection
-            data={orderedEvents}
-            emptyTitle="No event tickets purchased yet"
-            emptyStateSubtext="No worries - plenty of exciting events to explore!"
-            collectionType="My_Tickets"
-            limit={3}
-            page={ordersPage}
-            urlParamName="ordersPage"
-            totalPages={orders?.totalPages}
-          /> */}
+        <Collection
+          data={orderedEvents}
+          emptyTitle="No event tickets purchased yet"
+          emptyStateSubtext="No worries - plenty of exciting events to explore!"
+          collectionType="My_Tickets"
+          limit={3}
+          page={1}
+          urlParamName="ordersPage"
+          totalPages={orders?.totalPages}
+        />
       </section>
 
       {/* Events Organized */}

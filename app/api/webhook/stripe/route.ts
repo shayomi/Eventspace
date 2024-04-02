@@ -32,7 +32,16 @@ export async function POST(request: Request) {
     };
 
     const newOrder = await createOrder(order);
-    return NextResponse.json({ message: "OK", order: newOrder });
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,PATCH,OPTIONS",
+    };
+    return NextResponse.json({
+      message: "OK",
+      order: newOrder,
+      headers: headers,
+    });
   }
 
   return new Response("", { status: 200 });
